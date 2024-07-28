@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ user.name }}</p>
+    <a href="{{ url_for('logout') }}" class="right-aligned">Log Out</a>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+        <label for="fileUpload">Upload Document:</label>
+        <input type="file" id="fileUpload" name="fileUpload" accept="application/pdf" required>
+        <button type="submit">Upload</button>
+    </form>
+    <ul>
+        {% for document in documents %}
+            <li>
+                <a href="{{ url_for('choose_test', document_id=document.id) }}">{{ document.filename }}</a> - Uploaded on {{ document.date_uploaded }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
